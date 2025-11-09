@@ -1,6 +1,6 @@
 console.log("Welcome to Pig Latin Translator Game!");
 
-const vowels = ["a", "e", "i", "o", "u", "y"];
+const vowels = ["a", "e", "i", "o", "u"];
 const args = process.argv.slice(2);
 
 if (args.length === 0) {
@@ -12,28 +12,29 @@ if (args.length === 0) {
 }
 
 const words = args.length === 1 ? args[0].split(" ") : args;
+const pigLatin = (word) => {
+  const [first, second] = word;
+  const isUpper = first === first.toUpperCase();
 
-const output = words
-  .map((word) => {
-    const [first, second] = [...word.slice(0, 2)];
-    const isUpperCase = first === first.toUpperCase();
-    let phrase = "";
+  let transletedWord;
 
-    if (vowels.includes(first)) {
-      return word + "way";
-    }
+  if (vowels.includes(first.toLowerCase())) {
+    return word + "way";
+  }
 
-    if (!vowels.includes(first) && vowels.includes(second)) {
-      phrase = word.slice(1) + word.slice(0, 1) + "ay";
-    } else {
-      phrase = word.slice(2) + word.slice(0, 2) + "ay";
-    }
+  if (vowels.includes(second.toLowerCase())) {
+    transletedWord = word.slice(1) + word.slice(0, 1) + "ay";
+  } else {
+    transletedWord = word.slice(2) + word.slice(0, 2) + "ay";
+  }
 
-    return isUpperCase
-      ? phrase.slice(0, 1).toUpperCase() + phrase.slice(1).toLowerCase()
-      : phrase.toLowerCase();
-  })
-  .join(" ");
+  return isUpper
+    ? transletedWord.slice(0, 1).toUpperCase() +
+        transletedWord.slice(1).toLowerCase().toLowerCase()
+    : transletedWord.toLowerCase();
+};
+
+const output = words.map(pigLatin).join(" ");
 
 console.log(output);
 process.exit(0);
