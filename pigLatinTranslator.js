@@ -1,6 +1,6 @@
 console.log("Welcome to Pig Latin Translator Game!");
 
-const vowels = ["a", "e", "i", "o", "u", "y"];
+const vowels = ["a", "e", "i", "o", "u"];
 const args = process.argv.slice(2);
 
 if (args.length === 0) {
